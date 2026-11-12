@@ -1,0 +1,312 @@
+/* =========================================================
+   Mapa de calor de denúncias — CSS isolado
+   Todas as regras do projeto original, escopadas em #mapa-calor
+   para não colidir com o style.css do site (variáveis, h1/h2,
+   .credits, .panel, etc.). Visual do mapa preservado (tema escuro
+   neutro do projeto original).
+   ========================================================= */
+
+#mapa-calor {
+  /* variáveis originais, restritas a esta seção */
+  --bg: #0f1115;
+  --surface: #171a21;
+  --border: #262b36;
+  --text: #e8eaf0;
+  --muted: #9aa2b1;
+  --safe: #3fae5a;
+  --mid: #e0a83a;
+  --high: #d43a3a;
+  --radius: 12px;
+
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Liberation Sans", "DejaVu Sans", sans-serif;
+  scroll-margin-top: 70px;
+  margin-top: 2rem;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+#mapa-calor * { box-sizing: border-box; }
+
+#mapa-calor h1,
+#mapa-calor h2,
+#mapa-calor p,
+#mapa-calor ol,
+#mapa-calor ul {
+  font-family: inherit;
+}
+
+#mapa-calor .demo-banner {
+  background: #3a1d1d;
+  color: #ffd9d4;
+  border-bottom: 1px solid #5a2a2a;
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 0.5rem 1rem;
+}
+
+#mapa-calor .site-header {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1.75rem 1.25rem 1rem;
+}
+
+#mapa-calor .eyebrow {
+  margin: 0 0 0.25rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* h1 original → h2 na página integrada (um único h1 por página), mesmo visual */
+#mapa-calor .mc-title {
+  margin: 0;
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  line-height: 1.2;
+  font-weight: 700;
+  text-wrap: balance;
+}
+
+#mapa-calor .lead {
+  margin: 0.5rem 0 0;
+  color: var(--muted);
+  max-width: 60ch;
+  text-wrap: pretty;
+}
+
+#mapa-calor .layout {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+#mapa-calor .map-wrap {
+  position: relative;
+  /* cria contexto de empilhamento: os painéis do Leaflet (z-index até 1000)
+     não passam por cima do header fixo, do botão "Sair rápido" nem do modal */
+  isolation: isolate;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #111;
+}
+
+#mapa-calor #map {
+  height: 62vh;
+  min-height: 420px;
+  width: 100%;
+  background: #1a1d22;
+}
+
+#mapa-calor .leaflet-tile-pane {
+  filter: invert(1) hue-rotate(180deg) brightness(0.82) contrast(0.92) saturate(0.55);
+}
+
+#mapa-calor .legend {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  z-index: 500;
+  background: rgba(15, 17, 21, 0.9);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.65rem 0.8rem;
+  font-size: 0.78rem;
+  width: 220px;
+}
+
+#mapa-calor .legend-title {
+  margin: 0 0 0.4rem;
+  font-weight: 600;
+}
+
+#mapa-calor .legend-gradient {
+  height: 10px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #d8c445 0%, #e0862f 50%, #d43a3a 100%);
+}
+
+#mapa-calor .safe-swatch {
+  width: 28px;
+  height: 12px;
+  border-radius: 999px;
+  background: radial-gradient(circle, #5fd37a 0%, #2f9a4c 55%, #1d6b34 100%);
+  flex-shrink: 0;
+}
+
+#mapa-calor .legend-labels {
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  margin-top: 0.25rem;
+}
+
+#mapa-calor .legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+#mapa-calor .safe-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--safe);
+  border: 2px solid #fff;
+  flex-shrink: 0;
+}
+
+#mapa-calor .panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+#mapa-calor .stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+#mapa-calor .stat {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+}
+
+#mapa-calor .stat-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--high);
+  font-variant-numeric: tabular-nums;
+}
+
+#mapa-calor .stat-value.stat-safe { color: var(--safe); }
+
+#mapa-calor .stat-label {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+#mapa-calor .panel-section h2 {
+  margin: 0 0 0.5rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  font-weight: 700;
+}
+
+#mapa-calor .district-list,
+#mapa-calor .safe-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+#mapa-calor .district-list button {
+  all: unset;
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.4rem 0.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.88rem;
+}
+
+#mapa-calor .district-list button:hover,
+#mapa-calor .district-list button:focus-visible {
+  background: var(--bg);
+}
+
+#mapa-calor .district-list button:focus-visible {
+  outline: 2px solid #5b8def;
+}
+
+#mapa-calor .level-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+#mapa-calor .level-alto { background: var(--high); }
+#mapa-calor .level-medio { background: var(--mid); }
+#mapa-calor .level-baixo { background: #d8c445; }
+#mapa-calor .level-seguro { background: var(--safe); }
+
+#mapa-calor .district-name { flex: 1; }
+
+#mapa-calor .district-count {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+#mapa-calor .leaflet-popup-content-wrapper,
+#mapa-calor .leaflet-popup-tip {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+#mapa-calor .leaflet-popup-content { margin: 0.75rem 0.9rem; font-size: 0.85rem; }
+#mapa-calor .leaflet-popup-content strong { font-size: 0.95rem; }
+#mapa-calor .leaflet-container a.leaflet-popup-close-button { color: var(--muted); }
+
+#mapa-calor .popup-risk {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.25rem;
+}
+
+#mapa-calor .site-footer {
+  border-top: 1px solid var(--border);
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1rem 1.25rem 2rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+#mapa-calor .site-footer p { margin: 0.25rem 0; }
+#mapa-calor .site-footer strong { color: var(--text); }
+#mapa-calor .map-credits { font-size: 0.75rem; }
+
+@media (min-width: 960px) {
+  #mapa-calor .layout {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  #mapa-calor .map-wrap { flex: 1; }
+
+  #mapa-calor #map { height: 680px; }
+
+  #mapa-calor .panel {
+    width: 340px;
+    flex-shrink: 0;
+    max-height: 682px;
+    overflow-y: auto;
+  }
+}

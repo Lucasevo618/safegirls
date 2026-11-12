@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Você Não Está Sozinha — espaço digital de apoio para mulheres. Denuncie, se proteja e seja ouvida. Ferramentas de emergência, informação e rede de acolhimento." />
+  <meta name="theme-color" content="#12030b" />
+  <title>Você Não Está Sozinha — Denuncie • Se Proteja • Seja Ouvida</title>
+
+  <!-- Fontes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Leaflet (mapa de calor) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" crossorigin="anonymous" />
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="mapa-calor.css" />
+</head>
+<body>
+
+  <!-- ================= SAÍDA RÁPIDA (fixa) ================= -->
+  <button id="quickExit" class="quick-exit" title="Sair rapidamente (Esc x2)" aria-label="Saída rápida deste site">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 17l5-5-5-5v10z" fill="none"/><path d="M17 7v10M7 5h6a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 12h9m0 0l-3-3m3 3l-3 3" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Sair rápido
+  </button>
+
+
+  <!-- ================= TOPO: LOGOS INSTITUCIONAIS ================= -->
+  <div class="topbar">
+    <img class="topbar-logo topbar-logo--round" src="img/images.jfif" alt="Logo do Colégio Cívico-Militar do Paraná (CCMPR)" />
+    <img class="topbar-logo" src="img/Brasão_do_Paraná.svg" alt="Brasão do Estado do Paraná" />
+  </div>
+
+  <!-- ================= HEADER ================= -->
+  <header class="header" id="header">
+    <a href="#inicio" class="brand" aria-label="Você Não Está Sozinha - Início">
+      <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-08-03%20at%2012.04.50-e7SjzciJrXXlJ7cmgbpgUKJqdrfHMT.jpeg" alt="Logo Você Não Está Sozinha" class="brand-logo" />
+      <span class="brand-text">
+        <strong>Você Não Está Sozinha</strong>
+        <small>Denuncie • Se Proteja • Seja Ouvida</small>
+      </span>
+    </a>
+
+    <nav class="nav" id="nav" aria-label="Navegação principal">
+      <a href="#ferramentas">Ferramentas</a>
+      <a href="#assedio">Isso é assédio?</a>
+      <a href="#pontos">Pontos Seguros</a>
+      <a href="#mapa-calor">Mapa de Calor</a>
+      <a href="#apoio">Rede de Apoio</a>
+      <a href="#emergencia" class="nav-cta">Emergência</a>
+    </nav>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- ================= HERO ================= -->
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="hero-content reveal">
+        <span class="badge">Um espaço seguro e acolhedor</span>
+        <h1>Você não está sozinha.<br><span class="grad">Estamos com você.</span></h1>
+        <p class="hero-sub">
+          Um espaço digital que une <strong>ferramentas de emergência</strong>, informação confiável e
+          uma rede de acolhimento para mulheres em situação de assédio, perseguição ou violência.
+        </p>
+        <div class="hero-actions">
+          <a href="#emergencia" class="btn btn-primary">Preciso de ajuda agora</a>
+          <a href="#assedio" class="btn btn-ghost">Entender meus direitos</a>
+        </div>
+        <ul class="hero-stats">
+          <li><strong>180</strong><span>Central de Atendimento à Mulher</span></li>
+          <li><strong>190</strong><span>Polícia Militar — Emergência</span></li>
+          <li><strong>24h</strong><span>Apoio disponível todos os dias</span></li>
+        </ul>
+      </div>
+
+      <div class="hero-card reveal" aria-hidden="false">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-08-03%20at%2012.04.50-e7SjzciJrXXlJ7cmgbpgUKJqdrfHMT.jpeg" alt="Logo do projeto Você Não Está Sozinha" />
+      </div>
+    </section>
+
+    <!-- ================= EMERGÊNCIA / BOTÃO DE PÂNICO ================= -->
+    <section class="panic" id="emergencia">
+      <div class="panic-inner reveal">
+        <div class="panic-text">
+          <span class="badge badge-danger">Emergência</span>
+          <h2>Botão de Pânico</h2>
+          <p>Se você está em perigo imediato, aja rápido. Acione a ajuda oficial ou compartilhe sua localização com alguém de confiança.</p>
+        </div>
+        <div class="panic-actions">
+          <button class="panic-btn" id="panicBtn">
+            <span class="panic-ring"></span>
+            <span class="panic-label">Acionar<br>Ajuda</span>
+          </button>
+          <div class="panic-side">
+            <a href="tel:190" class="pill pill-strong">Ligar 190</a>
+            <a href="tel:180" class="pill">Ligar 180</a>
+            <button class="pill" id="shareLocation">Compartilhar localização</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= FERRAMENTAS ================= -->
+    <section class="section" id="ferramentas">
+      <div class="section-head reveal">
+        <span class="badge">O que oferecemos</span>
+        <h2>Ferramentas que protegem</h2>
+        <p>Recursos pensados para agir na urgência e amparar no dia a dia.</p>
+      </div>
+
+      <div class="grid grid-tools">
+        <article class="card reveal">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 4v5c0 4.4-3 8-7 9-4-1-7-4.6-7-9V7l7-4z" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M9.5 12l1.8 1.8L15 10" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Botão de Pânico</h3>
+          <p>Acesso imediato ao 180 e 190 e alerta rápido para sua rede de confiança.</p>
+        </article>
+
+        <article class="card reveal">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-5.4 7-11a7 7 0 1 0-14 0c0 5.6 7 11 7 11z" stroke="currentColor" stroke-width="1.6" fill="none"/><circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
+          </div>
+          <h3>Localização em Tempo Real</h3>
+          <p>Compartilhe onde você está com pessoas de confiança em poucos toques.</p>
+        </article>
+
+        <article class="card reveal">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2-6-2z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/><path d="M9 4v14M15 6v14" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
+          </div>
+          <h3>Mapa de Pontos Seguros</h3>
+          <p>Delegacias, postos de saúde e locais parceiros mais próximos de você.</p>
+        </article>
+
+        <article class="card reveal">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H7l-3 3V5z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/><path d="M8 9h8M8 12h5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>
+          </div>
+          <h3>Guia "Isso é Assédio?"</h3>
+          <p>Informação clara sobre a Lei 13.718/18 e como reconhecer a violência.</p>
+        </article>
+
+        <article class="card reveal">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-4.3-9-8.5C1.3 9.4 3 6 6 6c1.8 0 3 .9 3.9 2 .3.4 1 .4 1.3 0C12.1 6.9 13.3 6 15 6c3 0 4.7 3.4 3 6.5C18.5 16.7 12 21 12 21z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Apoio Psicológico e Jurídico</h3>
+          <p>Rede de profissionais e canais gratuitos para orientar seus próximos passos.</p>
+        </article>
+
+        <article class="card reveal">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 17l5-5-5-5M15 12H3" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Saída Rápida & Privacidade</h3>
+          <p>Botão para sair na hora e orientação para limpar o histórico de navegação.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================= ISSO É ASSÉDIO? ================= -->
+    <section class="section section-alt" id="assedio">
+      <div class="section-head reveal">
+        <span class="badge">Conhecimento é proteção</span>
+        <h2>Isso é assédio?</h2>
+        <p>Reconhecer é o primeiro passo. Se você se identifica com alguma situação abaixo, procure ajuda — você tem direitos garantidos por lei.</p>
+      </div>
+
+      <div class="grid grid-list">
+        <div class="quiz-item reveal">
+          <span class="dot"></span>
+          <p>Comentários, gestos ou toques de cunho sexual sem o seu consentimento.</p>
+        </div>
+        <div class="quiz-item reveal">
+          <span class="dot"></span>
+          <p>Alguém te seguindo, vigiando ou aparecendo repetidamente (stalking).</p>
+        </div>
+        <div class="quiz-item reveal">
+          <span class="dot"></span>
+          <p>Mensagens insistentes, ameaças ou chantagem, presenciais ou online.</p>
+        </div>
+        <div class="quiz-item reveal">
+          <span class="dot"></span>
+          <p>Controle sobre onde você vai, com quem fala ou como se veste.</p>
+        </div>
+        <div class="quiz-item reveal">
+          <span class="dot"></span>
+          <p>Exposição de fotos íntimas ou ameaça de divulgá-las.</p>
+        </div>
+        <div class="quiz-item reveal">
+          <span class="dot"></span>
+          <p>Qualquer forma de violência física, psicológica, moral ou patrimonial.</p>
+        </div>
+      </div>
+
+      <div class="law-note reveal">
+        <strong>Lei 13.718/18</strong> — tipifica o crime de importunação sexual e a divulgação de cenas
+        de estupro ou sexo sem consentimento. Denunciar é um direito seu.
+      </div>
+    </section>
+
+    <!-- ================= PONTOS SEGUROS ================= -->
+    <section class="section" id="pontos">
+      <div class="section-head reveal">
+        <span class="badge">Onde buscar ajuda</span>
+        <h2>Pontos Seguros perto de você</h2>
+        <p>Locais de acolhimento, denúncia e atendimento. Toque para ver detalhes.</p>
+      </div>
+
+      <div class="grid grid-points" id="pointsGrid"><!-- preenchido via script.js --></div>
+    </section>
+
+    <!-- ================= MAPA DE CALOR DE DENÚNCIAS (projeto integrado) ================= -->
+    <section id="mapa-calor" aria-labelledby="mc-title">
+      <div class="demo-banner" role="note">Dados fictícios — apenas demonstração</div>
+
+      <header class="site-header">
+        <p class="eyebrow">Foz do Iguaçu · Paraná</p>
+        <h2 class="mc-title" id="mc-title">Mapa de calor de denúncias</h2>
+        <p class="lead">Concentração de denúncias de violência contra mulheres por bairro, com destaque para as zonas mais seguras da cidade.</p>
+      </header>
+
+      <div class="layout">
+        <section class="map-wrap" aria-label="Mapa de calor de Foz do Iguaçu">
+          <div id="map" role="application" aria-label="Mapa interativo. Clique em uma zona para ver detalhes."></div>
+
+          <div class="legend" aria-label="Legenda">
+            <p class="legend-title">Legenda</p>
+            <div class="legend-gradient" aria-hidden="true"></div>
+            <div class="legend-labels">
+              <span>Risco baixo</span>
+              <span>Risco alto</span>
+            </div>
+            <div class="legend-item">
+              <span class="safe-swatch" aria-hidden="true"></span>
+              <span>Zona segura</span>
+            </div>
+          </div>
+        </section>
+
+        <aside class="panel" aria-label="Resumo dos dados">
+          <div class="stats">
+            <div class="stat">
+              <span class="stat-value" id="total-reports">0</span>
+              <span class="stat-label">Denúncias</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value stat-safe" id="total-safe">0</span>
+              <span class="stat-label">Zonas seguras</span>
+            </div>
+          </div>
+
+          <section class="panel-section">
+            <h2>Bairros por denúncias</h2>
+            <ol class="district-list" id="district-list"></ol>
+          </section>
+
+          <section class="panel-section">
+            <h2>Zonas seguras</h2>
+            <ul class="district-list" id="safe-list"></ul>
+          </section>
+        </aside>
+      </div>
+
+      <footer class="site-footer">
+        <p><strong>Dados fictícios — apenas demonstração.</strong> Os números e locais exibidos não representam ocorrências reais.</p>
+        <p>Em caso de violência, ligue <strong>180</strong> (Central de Atendimento à Mulher) ou <strong>190</strong> (Polícia Militar).</p>
+        <p class="map-credits">Mapa: © colaboradores do OpenStreetMap</p>
+      </footer>
+    </section>
+
+    <!-- ================= REDE DE APOIO ================= -->
+    <section class="section section-alt" id="apoio">
+      <div class="support reveal">
+        <div class="support-text">
+          <span class="badge">Você merece ser ouvida</span>
+          <h2>Uma rede pronta para te acolher</h2>
+          <p>Conectamos você a canais oficiais e profissionais voluntários. O primeiro contato pode ser anônimo e sem compromisso.</p>
+          <div class="support-actions">
+            <a href="tel:180" class="btn btn-primary">Falar com o 180</a>
+            <a href="#emergencia" class="btn btn-ghost">Ver ferramentas de emergência</a>
+          </div>
+        </div>
+        <div class="support-cards">
+          <div class="mini-card"><strong>180</strong><span>Central de Atendimento à Mulher</span></div>
+          <div class="mini-card"><strong>190</strong><span>Polícia Militar</span></div>
+          <div class="mini-card"><strong>100</strong><span>Direitos Humanos</span></div>
+          <div class="mini-card"><strong>188</strong><span>CVV — Apoio Emocional</span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-08-03%20at%2012.04.50-e7SjzciJrXXlJ7cmgbpgUKJqdrfHMT.jpeg" alt="Logo Você Não Está Sozinha" />
+        <p>Um projeto de apoio, informação e proteção para mulheres. Denuncie, se proteja e seja ouvida.</p>
+      </div>
+      <div class="footer-cols">
+        <div>
+          <h4>Navegação</h4>
+          <a href="#ferramentas">Ferramentas</a>
+          <a href="#assedio">Isso é assédio?</a>
+          <a href="#pontos">Pontos Seguros</a>
+          <a href="#mapa-calor">Mapa de Calor</a>
+          <a href="#apoio">Rede de Apoio</a>
+        </div>
+        <div>
+          <h4>Emergência</h4>
+          <a href="tel:180">180 — Atendimento à Mulher</a>
+          <a href="tel:190">190 — Polícia Militar</a>
+          <a href="tel:188">188 — CVV</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="credits">
+      <span>Equipe do projeto:</span>
+      <ul>
+        <li>Maria Eduarda Augusto</li>
+        <li>Maria Luiza</li>
+        <li>Lucas</li>
+        <li>Carlos Eduardo</li>
+      </ul>
+    </div>
+    <p class="copy">© <span id="year"></span> Você Não Está Sozinha • Projeto educacional sem fins lucrativos.</p>
+  </footer>
+  <!-- ================= MODAL DE ALERTA ================= -->
+  <div class="modal" id="panicModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+    <div class="modal-box reveal-in">
+      <button class="modal-close" id="modalClose" aria-label="Fechar">&times;</button>
+      <h3 id="modalTitle">Ajuda acionada</h3>
+      <p id="modalText">Escolha uma ação abaixo. Em perigo imediato, ligue 190.</p>
+      <div class="modal-actions">
+        <a href="tel:190" class="btn btn-primary">Ligar 190</a>
+        <a href="tel:180" class="btn btn-ghost">Ligar 180</a>
+      </div>
+      <p class="modal-tip" id="modalTip"></p>
+    </div>
+  </div>
+
+  <!-- Aviso de saída rápida -->
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <!-- Mapa de calor: Leaflet + plugin de calor + script original do projeto -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/leaflet.heat@0.2.0/dist/leaflet-heat.js" crossorigin="anonymous"></script>
+  <script src="mapa-calor.js"></script>
+
+  <script src="script.js"></script>
+</body>
+</html>
